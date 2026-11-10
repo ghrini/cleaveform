@@ -1,0 +1,121 @@
+shape,category,unit_mm,verdict,pieces,largest_stray,bricks,shapes_used,loose,bond_pct,singles,iou_pct,missing_pct,extra_pct,stands,weight_g,print_hours,plates,seconds,note
+cube,solid,6.0,pass,1,0,1939,5,0,99.4,0,92.3,0.1,8.3,True,2295.1,29.8,17,0.6,
+cube,solid,8.0,pass,1,0,851,4,0,94.3,18,92.3,0.2,8.1,True,1955.5,25.4,12,0.3,
+cube,solid,12.0,pass,1,0,268,5,0,97.6,0,92.0,0.9,7.6,True,1544.1,20.1,9,0.1,
+cube,solid,16.0,pass,1,0,117,3,0,92.3,9,91.9,0.0,8.8,True,1346.7,17.6,7,0.0,
+pyramid,solid,6.0,fail,20,60,725,6,0,51.9,124,91.7,2.3,6.5,True,417.7,5.5,7,0.2,"20 pieces: a main body of 285 bricks and 19 stray group(s) of 60, 50, 50, 40, 40, 32, ... brick(s)"
+pyramid,solid,8.0,fail,18,31,326,6,0,56.3,67,84.9,1.3,16.2,True,391.6,5.1,5,0.1,"18 pieces: a main body of 176 bricks and 17 stray group(s) of 31, 31, 25, 25, 9, 9, ... brick(s)"
+pyramid,solid,12.0,fail,10,12,114,6,0,40.4,28,79.9,3.1,21.3,True,326.0,4.3,4,0.0,"10 pieces: a main body of 71 bricks and 9 stray group(s) of 12, 9, 8, 4, 4, 2, ... brick(s)"
+pyramid,solid,16.0,fail,5,4,46,6,0,25.0,7,73.1,5.1,29.8,True,292.0,3.9,3,0.0,"5 pieces: a main body of 34 bricks and 4 stray group(s) of 4, 4, 2, 2 brick(s)"
+cone,solid,6.0,fail,14,19,589,6,0,77.9,38,92.5,2.1,5.9,True,500.3,6.5,5,0.4,"14 pieces: a main body of 525 bricks and 13 stray group(s) of 19, 14, 11, 8, 4, 1, ... brick(s)"
+cone,solid,8.0,fail,7,11,285,6,0,75.0,28,89.0,2.3,9.9,True,445.6,5.8,4,0.2,"7 pieces: a main body of 262 bricks and 6 stray group(s) of 11, 5, 4, 1, 1, 1 brick(s)"
+cone,solid,12.0,pass,1,0,75,5,0,90.9,4,82.5,2.8,17.8,True,373.9,4.9,3,0.1,
+cone,solid,16.0,split,5,2,50,6,0,65.8,6,77.1,3.8,24.8,True,349.7,4.6,3,0.0,"5 pieces: a main body of 45 bricks and 4 stray group(s) of 2, 1, 1, 1 brick(s)"
+capsule,solid,6.0,pass,1,0,536,6,15,75.0,58,90.9,1.6,8.2,True,408.2,5.3,5,0.3,
+capsule,solid,8.0,pass,1,0,228,6,7,70.0,8,87.6,1.8,12.2,True,359.8,4.7,4,0.1,
+capsule,solid,12.0,pass,1,0,87,6,2,62.2,23,81.0,3.0,19.8,True,306.6,4.0,3,0.0,
+capsule,solid,16.0,pass,1,0,38,5,1,61.1,0,74.1,2.5,31.5,True,291.4,3.9,3,0.0,
+sphere,solid,6.0,pass,1,0,1425,6,68,75.6,102,94.0,1.4,4.9,True,1225.9,16.0,12,0.4,
+sphere,solid,8.0,pass,1,0,652,6,33,74.2,47,91.3,1.7,7.6,True,1075.8,14.0,10,0.2,
+sphere,solid,12.0,pass,1,0,222,6,17,66.4,33,85.4,2.2,14.5,True,913.1,12.0,7,0.0,
+sphere,solid,16.0,pass,1,0,102,6,6,61.1,9,80.2,2.5,21.6,True,830.1,10.9,6,0.0,
+bowl,hollow,6.0,pass,1,0,575,6,66,54.2,87,81.7,4.2,17.2,True,380.5,5.0,5,0.2,
+bowl,hollow,8.0,pass,1,0,290,6,40,56.7,47,75.3,3.8,27.7,True,358.4,4.7,5,0.1,
+bowl,hollow,12.0,pass,1,0,107,6,12,54.2,13,63.4,3.6,51.9,True,343.6,4.6,4,0.0,
+bowl,hollow,16.0,pass,1,0,53,6,6,54.3,9,53.3,7.3,73.8,True,331.3,4.4,3,0.0,
+cup,hollow,6.0,pass,1,0,553,6,8,66.9,92,80.3,2.6,21.4,True,322.7,4.2,5,0.4,
+cup,hollow,8.0,fail,6,7,262,6,8,64.1,48,69.0,4.3,38.7,True,312.2,4.1,4,0.2,"6 pieces: a main body of 245 bricks and 5 stray group(s) of 7, 5, 3, 1, 1 brick(s)"
+cup,hollow,12.0,split,3,1,90,6,2,70.1,14,66.6,6.7,40.1,True,250.9,3.3,3,0.1,"3 pieces: a main body of 88 bricks and 2 stray group(s) of 1, 1 brick(s)"
+cup,hollow,16.0,pass,1,0,51,6,0,63.4,15,51.8,7.7,78.1,True,277.2,3.7,3,0.1,
+torus,hollow,6.0,pass,1,0,545,6,17,71.8,71,90.1,2.1,8.6,True,396.1,5.2,5,0.2,
+torus,hollow,8.0,pass,1,0,248,6,5,70.6,34,85.2,4.0,12.6,True,346.6,4.5,4,0.1,
+torus,hollow,12.0,pass,1,0,94,6,0,72.3,14,74.1,4.9,28.3,True,316.6,4.2,3,0.0,
+torus,hollow,16.0,pass,1,0,42,6,0,72.0,3,66.5,4.5,43.7,True,306.0,4.1,3,0.0,
+arch,hollow,6.0,pass,1,0,311,6,8,87.0,13,90.9,0.0,10.0,True,289.9,3.8,3,0.1,
+arch,hollow,8.0,pass,1,0,154,6,3,73.3,12,79.3,3.9,21.2,True,265.5,3.5,3,0.1,
+arch,hollow,12.0,pass,1,0,53,5,0,85.4,0,86.5,3.0,12.2,True,199.9,2.6,2,0.0,
+arch,hollow,16.0,pass,1,0,28,5,0,60.0,6,77.2,16.2,8.5,True,151.0,2.0,2,0.0,
+vase,hollow,6.0,pass,1,0,589,6,21,54.7,92,77.5,4.3,23.5,True,342.1,4.5,5,0.5,
+vase,hollow,8.0,split,4,1,271,6,5,55.8,41,69.4,6.3,35.1,True,316.2,4.2,4,0.3,"4 pieces: a main body of 268 bricks and 3 stray group(s) of 1, 1, 1 brick(s)"
+vase,hollow,12.0,split,2,1,103,6,1,54.3,15,59.2,7.5,56.2,True,293.9,3.9,4,0.1,2 pieces: a main body of 102 bricks and 1 stray group(s) of 1 brick(s)
+vase,hollow,16.0,pass,1,0,53,6,0,48.9,5,48.3,8.9,88.5,True,306.7,4.1,3,0.1,
+tray,hollow,6.0,pass,1,0,218,6,0,94.5,4,84.7,0.0,18.0,True,227.1,3.0,2,0.1,
+tray,hollow,8.0,split,9,1,96,6,0,84.1,2,74.2,8.8,23.0,True,188.6,2.5,2,0.1,"9 pieces: a main body of 88 bricks and 8 stray group(s) of 1, 1, 1, 1, 1, 1, ... brick(s)"
+tray,hollow,12.0,split,3,1,34,6,0,77.3,2,72.0,5.3,31.7,True,166.9,2.2,2,0.0,"3 pieces: a main body of 32 bricks and 2 stray group(s) of 1, 1 brick(s)"
+tray,hollow,16.0,pass,1,0,15,3,0,85.7,0,67.8,3.4,42.4,True,156.8,2.1,1,0.0,
+table,thin,6.0,pass,1,0,387,5,60,82.9,0,76.8,0.3,29.7,True,361.6,4.7,4,0.3,
+table,thin,8.0,pass,1,0,161,5,34,43.3,12,82.4,2.8,18.0,True,275.9,3.6,3,0.1,
+table,thin,12.0,split,5,1,94,6,17,46.5,26,57.7,3.5,67.4,True,320.3,4.2,3,0.1,"5 pieces: a main body of 90 bricks and 4 stray group(s) of 1, 1, 1, 1 brick(s)"
+table,thin,16.0,pass,1,0,46,4,5,36.6,10,43.9,1.8,123.5,True,366.8,4.8,3,0.0,
+chair,thin,6.0,pass,1,0,220,5,21,61.9,24,82.9,1.0,19.4,True,148.9,1.9,2,0.2,
+chair,thin,8.0,pass,1,0,105,5,12,45.0,23,65.6,11.7,34.5,True,132.7,1.8,2,0.1,
+chair,thin,12.0,pass,1,0,53,6,2,45.8,11,53.1,0.0,88.5,True,164.0,2.2,2,0.0,
+chair,thin,16.0,pass,1,0,27,3,2,33.3,15,38.5,15.2,120.4,True,154.6,2.1,2,0.0,
+bridge,thin,6.0,pass,1,0,166,5,8,84.9,0,72.7,0.2,37.3,True,154.8,2.0,2,0.1,
+bridge,thin,8.0,pass,1,0,84,5,0,78.9,7,60.8,5.2,55.8,True,146.1,1.9,2,0.1,
+bridge,thin,12.0,pass,1,0,40,6,0,65.6,6,51.9,7.4,78.4,True,134.9,1.8,2,0.0,
+bridge,thin,16.0,pass,1,0,19,6,0,28.6,6,49.1,17.6,67.9,True,103.6,1.4,2,0.0,
+fence,thin,6.0,pass,1,0,116,5,0,39.8,36,57.9,12.7,50.7,True,49.4,0.7,1,0.1,
+fence,thin,8.0,pass,1,0,47,4,0,42.9,9,67.5,1.4,46.0,True,44.2,0.6,1,0.1,
+fence,thin,12.0,fail,3,6,18,1,0,0.0,18,27.8,62.6,34.6,True,20.0,0.3,1,0.0,"3 pieces: a main body of 6 bricks and 2 stray group(s) of 6, 6 brick(s)"
+fence,thin,16.0,fail,3,1,6,2,2,0.0,4,23.7,59.0,72.8,False,24.7,0.4,1,0.0,"3 pieces: a main body of 4 bricks and 2 stray group(s) of 1, 1 brick(s)"
+stairs,thin,6.0,pass,1,0,444,6,0,90.3,14,86.1,0.8,15.2,True,476.8,6.2,4,0.2,
+stairs,thin,8.0,pass,1,0,187,6,0,97.0,3,89.9,0.5,10.7,True,392.5,5.1,3,0.1,
+stairs,thin,12.0,pass,1,0,74,6,0,78.5,4,81.8,2.8,18.9,True,334.5,4.4,3,0.0,
+stairs,thin,16.0,pass,1,0,38,6,0,75.8,2,75.5,1.5,30.4,True,320.7,4.3,3,0.0,
+letter_L,thin,6.0,pass,1,0,173,4,0,79.4,21,85.7,2.3,14.1,True,145.0,1.9,2,0.1,
+letter_L,thin,8.0,pass,1,0,90,6,0,79.8,1,78.3,3.2,23.6,True,134.2,1.8,2,0.1,
+letter_L,thin,12.0,pass,1,0,46,6,0,85.7,5,66.7,3.7,44.3,True,129.1,1.7,2,0.0,
+letter_L,thin,16.0,pass,1,0,24,5,0,54.5,8,76.0,1.0,30.3,True,105.0,1.4,2,0.0,
+letter_H,thin,6.0,pass,1,0,284,5,6,82.2,11,84.4,2.1,16.0,True,244.6,3.2,3,0.1,
+letter_H,thin,8.0,pass,1,0,155,6,2,78.7,3,78.5,1.6,25.3,True,229.4,3.0,3,0.1,
+letter_H,thin,12.0,pass,1,0,77,6,0,69.4,8,62.8,3.0,54.4,True,228.7,3.0,3,0.0,
+letter_H,thin,16.0,pass,1,0,38,6,0,74.3,7,66.5,1.3,48.5,True,193.6,2.6,3,0.0,
+tower,thin,6.0,pass,1,0,72,3,0,100.0,0,76.8,0.0,30.2,True,37.8,0.5,1,0.0,
+tower,thin,8.0,pass,1,0,44,3,0,55.8,18,97.2,0.0,2.9,True,27.3,0.4,1,0.0,
+tower,thin,12.0,pass,1,0,23,2,0,47.6,12,53.2,8.4,72.3,True,35.5,0.5,1,0.0,
+tower,thin,16.0,pass,1,0,9,1,0,0.0,9,97.2,0.0,2.9,True,20.4,0.3,1,0.0,
+mushroom,overhang,6.0,pass,1,0,582,6,85,64.0,80,81.7,2.7,19.1,True,460.3,6.0,5,0.4,
+mushroom,overhang,8.0,fail,5,6,252,6,49,60.3,21,77.1,2.4,26.5,True,418.6,5.5,4,0.3,"5 pieces: a main body of 237 bricks and 4 stray group(s) of 6, 6, 2, 1 brick(s)"
+mushroom,overhang,12.0,fail,7,8,86,6,21,63.9,9,72.7,4.7,31.0,True,342.3,4.5,3,0.1,"7 pieces: a main body of 60 bricks and 6 stray group(s) of 8, 8, 4, 4, 1, 1 brick(s)"
+mushroom,overhang,16.0,split,3,1,50,6,12,40.4,8,59.8,6.6,56.2,True,350.1,4.6,3,0.1,"3 pieces: a main body of 48 bricks and 2 stray group(s) of 1, 1 brick(s)"
+t_shape,overhang,6.0,pass,1,0,145,6,15,72.3,8,66.3,2.0,47.9,True,112.9,1.5,2,0.1,
+t_shape,overhang,8.0,pass,1,0,62,6,6,83.1,3,76.1,0.4,30.9,True,86.6,1.1,1,0.0,
+t_shape,overhang,12.0,pass,1,0,29,5,2,85.2,0,53.1,0.3,87.8,True,100.6,1.3,1,0.0,
+t_shape,overhang,16.0,split,2,1,19,5,2,33.3,3,41.3,4.6,131.0,True,107.0,1.5,2,0.0,2 pieces: a main body of 18 bricks and 1 stray group(s) of 1 brick(s)
+tree,overhang,6.0,pass,1,0,492,6,24,70.1,15,89.9,2.0,8.9,True,443.4,5.8,5,0.3,
+tree,overhang,8.0,pass,1,0,272,6,25,66.5,30,85.1,2.3,14.8,True,403.3,5.3,4,0.1,
+tree,overhang,12.0,pass,1,0,91,6,10,61.8,13,75.9,3.6,27.0,True,353.3,4.6,3,0.1,
+tree,overhang,16.0,pass,1,0,53,6,6,46.0,15,68.5,4.6,39.2,True,336.3,4.5,3,0.0,
+shelf,overhang,6.0,pass,1,0,355,6,48,79.2,2,86.0,0.7,15.5,False,359.3,4.7,3,0.2,
+shelf,overhang,8.0,pass,1,0,196,5,38,63.0,19,91.7,0.1,9.0,False,297.0,3.9,3,0.1,
+shelf,overhang,12.0,pass,1,0,76,6,6,78.4,3,55.5,2.8,75.0,False,368.5,4.8,3,0.0,
+shelf,overhang,16.0,pass,1,0,33,4,6,58.1,6,64.1,3.6,50.5,False,273.2,3.6,2,0.0,
+blob,organic,6.0,pass,1,0,813,6,37,72.1,70,91.5,2.0,7.1,True,668.6,8.7,7,0.2,
+blob,organic,8.0,pass,1,0,376,6,16,67.6,36,87.2,1.9,12.5,True,602.2,7.9,6,0.1,
+blob,organic,12.0,pass,1,0,130,6,5,68.9,12,80.7,2.6,20.8,True,515.9,6.8,5,0.0,
+blob,organic,16.0,pass,1,0,67,6,3,61.0,8,73.2,2.9,32.7,True,490.3,6.5,4,0.0,
+car,organic,6.0,pass,1,0,322,6,26,80.8,6,84.8,1.4,16.3,True,347.4,4.5,3,0.3,
+car,organic,8.0,pass,1,0,157,6,10,78.2,7,76.6,4.9,24.2,True,309.6,4.0,3,0.1,
+car,organic,12.0,pass,1,0,51,6,4,61.7,1,74.6,4.6,27.8,True,255.9,3.4,2,0.1,
+car,organic,16.0,pass,1,0,26,5,0,90.5,1,65.3,5.7,44.4,True,248.9,3.3,2,0.0,
+animal,organic,6.0,pass,1,0,373,6,24,54.2,58,78.6,3.7,22.5,True,225.1,3.0,4,0.3,
+animal,organic,8.0,pass,1,0,195,6,19,55.7,41,69.6,5.1,36.4,True,214.5,2.8,3,0.2,
+animal,organic,12.0,pass,1,0,77,6,7,42.6,29,58.0,8.7,57.5,True,197.0,2.6,3,0.1,
+animal,organic,16.0,split,2,2,37,6,2,51.5,9,48.7,11.5,81.7,True,194.8,2.6,3,0.1,2 pieces: a main body of 35 bricks and 1 stray group(s) of 2 brick(s)
+house,organic,6.0,pass,1,0,874,6,1,94.4,9,89.7,0.8,10.6,True,965.9,12.5,8,0.3,
+house,organic,8.0,pass,1,0,383,6,0,97.2,5,88.8,1.2,11.3,True,828.9,10.8,6,0.2,
+house,organic,12.0,pass,1,0,132,6,0,90.7,4,86.2,2.5,13.2,True,668.9,8.8,5,0.0,
+house,organic,16.0,pass,1,0,59,5,0,86.3,4,82.5,2.9,17.7,True,594.3,7.8,4,0.0,
+open_sphere,messy,6.0,pass,1,0,1425,6,68,75.6,102,94.0,1.4,4.9,True,1225.9,16.0,12,0.3,
+open_sphere,messy,8.0,pass,1,0,652,6,33,74.2,47,91.3,1.7,7.6,True,1075.8,14.0,10,0.2,
+open_sphere,messy,12.0,pass,1,0,222,6,17,66.4,33,85.4,2.2,14.5,True,913.1,12.0,7,0.0,
+open_sphere,messy,16.0,pass,1,0,102,6,6,61.1,9,80.2,2.5,21.6,True,830.1,10.9,6,0.0,
+inverted_sphere,messy,6.0,pass,1,0,1425,6,68,75.6,102,94.0,1.4,4.9,True,1225.9,16.0,12,0.3,
+inverted_sphere,messy,8.0,pass,1,0,652,6,33,74.2,47,91.3,1.7,7.6,True,1075.8,14.0,10,0.2,
+inverted_sphere,messy,12.0,pass,1,0,222,6,17,66.4,33,85.4,2.2,14.5,True,913.1,12.0,7,0.0,
+inverted_sphere,messy,16.0,pass,1,0,102,6,6,61.1,9,80.2,2.5,21.6,True,830.1,10.9,6,0.0,
+two_bodies,messy,6.0,pass,2,61,127,6,9,57.1,19,84.6,3.2,14.4,True,86.5,1.1,2,0.0,
+two_bodies,messy,8.0,pass,2,33,69,6,2,54.2,11,74.4,5.4,27.2,True,82.1,1.1,1,0.0,
+two_bodies,messy,12.0,fail,4,14,32,5,2,54.2,7,66.4,7.7,38.9,True,72.8,1.0,1,0.0,"4 pieces: a main body of 15 bricks and 3 stray group(s) of 14, 2, 1 brick(s)"
+two_bodies,messy,16.0,pass,2,8,17,4,0,72.7,4,56.6,6.2,65.8,True,76.0,1.0,1,0.0,

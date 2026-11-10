@@ -1,0 +1,8 @@
+{
+  "joint_clearance_mm": 0.19,
+  "brick_clutch_interference_mm": 0.55,
+  "infill_factor": 0.15,
+  "nominal_speed_mm_s": 218.0,
+  "layer_overhead_s": 1.54,
+  "shell_thickness_mm": 0.729
+}

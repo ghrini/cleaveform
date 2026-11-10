@@ -1,0 +1,1 @@
+{"final": {"bond_fraction": 0.7931034482758621, "seam_alignment_fraction": 0.32, "weakest_link_cells": 48, "loose_brick_count": 0, "component_count": 1, "courses": 4}, "naive": {"bond_fraction": 0.0, "seam_alignment_fraction": 1.0, "weakest_link_cells": 48, "loose_brick_count": 0, "component_count": 6, "courses": 4}}

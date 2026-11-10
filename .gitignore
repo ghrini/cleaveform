@@ -1,0 +1,24 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+out/
+.cleaveform-cache/
+
+# generated output and print bundles (regenerate with the CLI)
+*.zip
+.venv/
+vase_bricks/
+vase_out/
+vb_hollow/
+brick_fit_hollow/
+brick_fit_test/
+brick_fit_test_16/
+brick_fit_test_175/
+brick_bracket/
+*.log
+phase3_bench.log
+full_suite.log

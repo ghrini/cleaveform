@@ -1,0 +1,25 @@
+{
+  "_source": "Bambu Lab H2D, Bambu Studio, sliced 2026-08-22",
+  "_settings": {
+    "nozzle_mm": 0.4,
+    "layer_height_mm": 0.2,
+    "infill_percent": 15,
+    "supports": false,
+    "material": "PLA"
+  },
+  "_note": "Real slicer output. Both time and weight are fitted to these; the tests assert the model stays within the spec's 25% time bar and stays close on weight.",
+  "print_time_min": {
+    "s1_tall_column": 123.0,
+    "s2_flat_slab": 295.0,
+    "s3_medium_cube": 308.0,
+    "s4_small_cube": 41.27,
+    "s5_dome": 198.0
+  },
+  "weight_g": {
+    "s1_tall_column": 112.31,
+    "s2_flat_slab": 360.62,
+    "s3_medium_cube": 402.62,
+    "s4_small_cube": 37.01,
+    "s5_dome": 240.41
+  }
+}

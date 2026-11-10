@@ -1,0 +1,44 @@
+                                THE FIT GAUGE                                 
+==============================================================================
+
+This is not another fit test. It measures how your printer + slicer
+actually render a stud-in-slot fit, as one number, so the bricks can
+be corrected at the source instead of guessed at again.
+
+PRINT: both parts flat as exported, no supports, no brim needed,
+same filament and profile you use for bricks.
+
+READ IT:
+
+  The comb has slots from TIGHT to LOOSE. Slot 1 is the one next to
+  the tab that sticks out of the end. Hold the bar studs-down and try
+  each slot, starting from the tab end:
+
+    A = the first slot the bar DROPS INTO and slides freely
+    B = the first slot the bar can be PRESSED into with a firm push
+        and stays put when you lift the comb
+
+  Write down the two numbers (for example: A=5, B=4). That is the
+  whole measurement.
+
+------------------------------------------------------------------------------
+  slot   designed gap   slot width
+------------------------------------------------------------------------------
+     1       -0.30 mm      4.50 mm
+     2       -0.20 mm      4.60 mm
+     3       -0.10 mm      4.70 mm
+     4       +0.00 mm      4.80 mm
+     5       +0.10 mm      4.90 mm
+     6       +0.20 mm      5.00 mm
+     7       +0.30 mm      5.10 mm
+------------------------------------------------------------------------------
+
+The answer becomes brick_fit_bias_mm in your printer profile. After
+that, brick_clutch_interference_mm means the grip you actually get in
+the plastic, on this printer, with this profile.
+
+If the bar will not enter ANY slot, or rattles in slot 1, say so -
+that means the bias is outside this range and the next gauge will be
+shifted to find it.
+
+==============================================================================

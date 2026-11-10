@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cleaveform"
+version = "0.1.0"
+description = "Split a 3D model into H2D-printable chunks with peg/socket connectors and an assembly guide."
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "trimesh",
+    "manifold3d",
+    "shapely",
+    "click",
+]
+
+[project.optional-dependencies]
+# Second-chance repair for non-manifold input meshes. The pipeline runs without
+# it; broken inputs are simply rejected earlier.
+repair = ["open3d"]
+dev = ["pytest"]
+
+[project.scripts]
+cleaveform = "cleaveform.cli:entrypoint"
+
+[tool.setuptools.packages.find]
+include = ["cleaveform*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

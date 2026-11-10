@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cleaveform: Project Report</title>
+<style>
+  @page { size: A4; margin: 17mm 16mm 18mm 16mm; }
+  :root { --ink:#1f2933; --muted:#52606d; --line:#d9dee3; --blue:#2f6db5; --orange:#d9822b; --green:#3f9a5a; --red:#c0392b; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Calibri, Arial, sans-serif; font-size: 10.3pt; line-height: 1.5; color: var(--ink); margin: 0; }
+  h1 { font-size: 19pt; margin: 0 0 6px; padding-bottom: 6px; border-bottom: 3px solid var(--blue); break-after: avoid; }
+  h2 { font-size: 13pt; margin: 20px 0 6px; color: var(--blue); break-after: avoid; }
+  h3 { font-size: 11pt; margin: 14px 0 4px; break-after: avoid; }
+  p { margin: 6px 0 8px; }
+  ul, ol { margin: 4px 0 10px 0; padding-left: 20px; }
+  li { margin: 2px 0; }
+  .section { break-before: page; }
+  .section.flow { break-before: auto; margin-top: 22px; }
+  .cover { text-align: left; padding-top: 55mm; }
+  .cover .kicker { color: var(--blue); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 10pt; }
+  .cover h1 { font-size: 32pt; border: 0; margin: 6px 0 4px; line-height: 1.1; }
+  .cover .sub { font-size: 14pt; color: var(--muted); margin-bottom: 26mm; }
+  .cover table { width: auto; }
+  .cover td { padding: 3px 18px 3px 0; border: 0; }
+  figure { margin: 12px 0 14px; break-inside: avoid; text-align: center; }
+  figure img { max-width: 100%; max-height: 98mm; width: auto; height: auto; }
+  figcaption { font-size: 8.8pt; color: var(--muted); margin-top: 4px; text-align: left; }
+  table { border-collapse: collapse; width: 100%; margin: 8px 0 14px; font-size: 9.2pt; }
+  tr { break-inside: avoid; }
+  th { background: #eef2f6; text-align: left; padding: 5px 8px; border-bottom: 2px solid var(--line); }
+  td { padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .callout, .note, .warn, .good { border-left: 4px solid var(--blue); background: #eef5fc; padding: 8px 12px; margin: 10px 0 14px; border-radius: 0 4px 4px 0; break-inside: avoid; }
+  .note { border-color: #9aa5b1; background: #f4f6f8; font-size: 9.6pt; }
+  .warn { border-color: var(--orange); background: #fdf3e8; }
+  .good { border-color: var(--green); background: #edf7f0; }
+  .callout b.t, .note b.t, .warn b.t, .good b.t { display: block; font-size: 8.8pt; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; color: var(--muted); }
+  code, pre { font-family: Consolas, "Courier New", monospace; font-size: 8.6pt; }
+  pre { background: #f4f6f8; border: 1px solid var(--line); padding: 8px 10px; border-radius: 4px; overflow: hidden; white-space: pre-wrap; line-height: 1.35; }
+  .tag { display:inline-block; padding: 1px 8px; border-radius: 10px; font-size: 8.5pt; font-weight: 700; color: white; }
+  .t-ok { background: var(--green); } .t-no { background: var(--red); } .t-wait { background: var(--orange); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .small { font-size: 9pt; color: var(--muted); }
+  .photo { border: 2px dashed #b8c2cc; border-radius: 6px; padding: 22px 12px; text-align: center; color: var(--muted); font-size: 9pt; margin: 8px 0 12px; break-inside: avoid; background: #fafbfc; }
+  a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ================================================================ COVER -->
+<div class="cover">
+  <div class="kicker">Project report</div>
+  <h1>Cleaveform</h1>
+  <div class="sub">A tool that turns any 3D model into printable pieces, and builds anything from repeated bricks.</div>
+  <table>
+    <tr><td><b>Printer</b></td><td>Bambu Lab H2D, 0.4 mm nozzle, PLA</td></tr>
+    <tr><td><b>Written</b></td><td>19 October 2026</td></tr>
+    <tr><td><b>State</b></td><td>265 automated tests passing; chunk mode calibrated; brick mode working in software; brick grip not yet confirmed on a real print</td></tr>
+    <tr><td><b>Written for</b></td><td>The project owner. Plain language first, with a short technical box in each section.</td></tr>
+  </table>
+</div>
+
+<!-- ================================================================ 1 SUMMARY -->
+<div class="section">
+<h1>1. Summary</h1>
+
+<p>You handed over three specification documents and asked for a tool that splits a 3D model into 3D-printable pieces, joins them with connectors, and writes an assembly guide. Along the way your real goal became clear: <b>"custom legos for anything"</b>. You want to take any model and build it from a small set of identical, interlocking bricks you print yourself.</p>
+
+<p>That produced two modes that sit side by side. <b>Chunk mode</b> cuts a model that is too big for the print bed into a few large pieces. <b>Brick mode</b> turns any model into a stack of small repeated bricks. Brick mode is not real-LEGO compatible, by your choice.</p>
+
+<table>
+  <tr><th>Part of the project</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td>Chunk mode (cut big models, joints, guide)</td><td><span class="tag t-ok">working</span></td><td>Joint fit calibrated by real prints: <b>0.19 mm</b></td></tr>
+  <tr><td>Smarter cuts, caching, print estimates</td><td><span class="tag t-ok">working</span></td><td>Estimates within 16 % on time and 2 % on weight of your 5 real slices</td></tr>
+  <tr><td>Brick mode in software</td><td><span class="tag t-ok">working</span></td><td>Small vase becomes 108 bricks of 6 shapes, with plates, parts list and course maps</td></tr>
+  <tr><td>Brick grip (the click that holds two bricks)</td><td><span class="tag t-no">not yet proven</span></td><td>Many print rounds (section 6.1); none yet a brick pair that clicks and holds</td></tr>
+  <tr><td>Fit gauge, to measure your printer</td><td><span class="tag t-wait">built, unprinted</span></td><td>Waiting on the printer (storage error)</td></tr>
+</table>
+
+<div class="callout"><b class="t">Three things to know</b>
+<ol>
+<li><b>The software is solid; the physical grip is the open problem.</b> Everything up to "here are your brick files" works and is tested. The part that makes two printed bricks click together has not worked yet.</li>
+<li><b>A new finding today:</b> a rough strain estimate says the thin gripping wall is stretched past what printed PLA tolerates (section 6.8). If it holds up, the bricks take a permanent set the first time they are pressed together, and that alone could explain "loose" at every setting.</li>
+<li><b>A bug I introduced and found today:</b> after the clutch redesign, brick mode crashed at its very last step (writing the guide), and no test covered that path. It is fixed, with two end-to-end tests added (section 7).</li>
+</ol></div>
+
+<p>This report also records the wrong turns. Several of my explanations turned out to be mistaken, and the corrected versions are more useful than a clean story would be. Section 7 lists them all.</p>
+</div>
+
+<!-- ================================================================ 2 HOW IT WORKS -->
+<div class="section flow">
+<h1>2. How the tool works</h1>
+<p>You give Cleaveform a 3D model file (<code>.stl</code>). It checks and repairs the model, then follows one of two paths. Both paths use the same cache, the same cost scoring and the same print-time estimates, and both are <b>deterministic</b>: running the same model twice gives byte-identical files.</p>
+<figure><img src="figs/diagram_pipeline.png"><figcaption>Figure 1. The two modes. Chunk mode keeps a few large parts; brick mode makes many copies of a few small ones.</figcaption></figure>
+
+<div class="callout"><b class="t">In plain words</b>
+Chunk mode is for "this is too big for my printer": it saws the model into a few pieces and adds pegs and sockets so you can glue or press them back together. Brick mode is for "I want this built like a toy": it fills the shape with LEGO-style bricks and tells you which brick goes where, layer by layer.</div>
+
+<div class="note"><b class="t">Technical</b>
+Everything runs offline. Geometry uses <code>trimesh</code> with the <code>manifold3d</code> boolean engine, <code>shapely</code> for 2D work and <code>numpy</code>. Every tunable number lives in one configuration file, and a test fails the build if any tunable number is written inline elsewhere. Your printer's measured values live in <code>myprinter.json</code>.</div>
+</div>
+
+<!-- ================================================================ 3 CHUNK -->
+<div class="section flow">
+<h1>3. Phase 1: chunk mode</h1>
+<p><b>What it does:</b> takes a model too large for the printer, decides where to cut, adds peg-and-socket connectors across every cut, checks each part can be printed, works out the order to assemble them, and writes an assembly guide.</p>
+
+<h2>3.1 Example: a block that is far too big</h2>
+<p>A 400 × 400 × 120 mm block cannot be printed whole. Chunk mode cut it into four parts, found four cut faces needing connectors, and planned three assembly steps. At your calibrated settings the estimate is about 56 hours and 4.2 kg of filament in total.</p>
+<figure><img src="figs/chunk_block.png"><figcaption>Figure 2. Real output from the 400 × 400 × 120 mm test block. Left: how it goes back together. Right: pulled apart, one colour per printed part. The pegs are only a few millimetres and are too small to see at this scale; Figure 4 shows one.</figcaption></figure>
+
+<h2>3.2 Example: a long bar</h2>
+<figure><img src="figs/chunk_bar.png"><figcaption>Figure 3. A 620 mm bar cut into three parts, the minimum that fits the per-part length limit of 280 mm.</figcaption></figure>
+
+<h2>3.3 The joint, and how its fit was found</h2>
+<p>A peg that is exactly the size of its socket will not go in, and one that is too small wobbles. The right gap depends on your printer, filament and slicer settings, so it cannot be calculated; it has to be printed and felt.</p>
+<figure><img src="figs/chunk_joint.png"><figcaption>Figure 4. The calibration fixture: a 24 mm cube split in two, one half with pegs and one with sockets. This is the real fixture, drawn at the calibrated clearance.</figcaption></figure>
+<figure><img src="figs/chunk_clearance.png"><figcaption>Figure 5. Your verdicts, tested one pair at a time. Smaller clearances were stuck together or too hard to pull apart, <b>0.19 mm</b> held and pulled free, and larger ones were looser.</figcaption></figure>
+
+<div class="warn"><b class="t">A lesson from this step</b>
+Your first attempt compared four cubes at once and the ranking came out backwards from what the geometry predicts. Testing <b>one pair at a time</b> gave clean, consistent answers. The most likely explanation is that the cubes got mixed up off the plate, and it is the reason newer test pieces carry batch marks (section 6.7).</div>
+
+<div class="note"><b class="t">Technical</b>
+Cuts are made by recursive binary partitioning, and a part is only cut further if it exceeds the length limit set in the config (280 x 300 x 300 mm per axis, set conservatively below the machine's volume). Assembly order comes from undoing the partition tree in reverse. Adding parts one at a time deadlocks on any model cut along two axes, because a part in a 2 × 2 grid has to engage two joints at once.</div>
+</div>
+
+<!-- ================================================================ 4 PHASE 2 -->
+<div class="section flow">
+<h1>4. Phase 2: better cuts, caching, honest estimates</h1>
+
+<h2>4.1 Choosing where to cut</h2>
+<p>Several cuts can satisfy the size limit, so a six-factor score picks the best one: number of parts, support material needed, how visible the seams are, number of joints, print time, and how much a cut weakens the part. The weights can be changed in the config.</p>
+<figure><img src="figs/phase2_cuts.png"><figcaption>Figure 6. A finding worth keeping. An earlier extra cost term, "leave less oversize behind", fought the part-count term and cut this 620 mm bar into four parts when three fit. It was removed. Fitting inside the size limit is now guaranteed by how the cutter works, not by a cost weight. The four-part row is illustrative; the three-part row is real output.</figcaption></figure>
+
+<h2>4.2 Caching</h2>
+<p>Each stage's result is saved under a key made from its input and only the settings that affect it, so changing one setting only recomputes what depends on it.</p>
+<figure><img src="figs/phase2_cache.png"><figcaption>Figure 7. Timings measured while writing this report. An identical rerun reads from the cache and produces output byte-identical to the first run.</figcaption></figure>
+<div class="note"><b class="t">Technical</b>
+Meshes are cached as exact 64-bit arrays, not as PLY or STL files. Both of those round-trip through 32-bit floats, which shifts vertices by about a millionth of a millimetre. That is harmless on a print and enough to make a cached run differ from a fresh one. A test fails if any config setting is not assigned to a cache stage, so a new setting forces a decision about what it invalidates.</div>
+
+<h2>4.3 Print-time and filament estimates, fitted to your real slices</h2>
+<p>You sliced five shapes in Bambu Studio and gave me the times and weights. The estimator was fitted to those.</p>
+<figure><img src="figs/phase2_estimates.png"><figcaption>Figure 8. Estimates against your measured values. The shaded bands show the target tolerance.</figcaption></figure>
+<table><tr><th>Sample</th><th class="num">Measured time</th><th class="num">Estimated</th><th class="num">Error</th><th class="num">Measured weight</th><th class="num">Estimated</th><th class="num">Error</th></tr>
+<tr><td>tall column</td><td class="num">123 min</td><td class="num">120 min</td><td class="num">-2.8 %</td><td class="num">112 g</td><td class="num">113 g</td><td class="num">+1.0 %</td></tr>
+<tr><td>flat slab</td><td class="num">295 min</td><td class="num">283 min</td><td class="num">-4.1 %</td><td class="num">361 g</td><td class="num">364 g</td><td class="num">+0.8 %</td></tr>
+<tr><td>medium cube</td><td class="num">308 min</td><td class="num">323 min</td><td class="num">+5.0 %</td><td class="num">403 g</td><td class="num">400 g</td><td class="num">-0.8 %</td></tr>
+<tr><td>small cube</td><td class="num">41 min</td><td class="num">35 min</td><td class="num">-15.7 %</td><td class="num">37 g</td><td class="num">37 g</td><td class="num">-0.5 %</td></tr>
+<tr><td>dome</td><td class="num">198 min</td><td class="num">194 min</td><td class="num">-2.2 %</td><td class="num">240 g</td><td class="num">236 g</td><td class="num">-1.8 %</td></tr>
+</table>
+<div class="warn"><b class="t">What went wrong and what it taught</b>
+The first fit used time alone and reached 26.5 % worst-case error, missing the 25 % target. Adding a solid-skin term fixed time, but the weight it implied was then 10 to 21 % too high. Time mixes real plastic volume with per-layer travel overhead, so a time-only fit inflates the volume term to absorb that overhead. The fix was to fit the shared term (<code>shell thickness</code>) against <b>weight</b>, the cleanest signal for volume, and only then fit speed and layer overhead against time. The lesson: when two outputs share one physical term, calibrate it against the cleaner measurement. The small cube is the weakest point at 15.7 %, because small parts are dominated by overhead the model only approximates.</div>
+</div>
+
+<!-- ================================================================ 5 BRICK MODE -->
+<div class="section flow">
+<h1>5. Brick mode</h1>
+<p>This is the mode that serves your real goal. It builds any model out of identical bricks, so a few printed shapes can make many different things.</p>
+
+<h2>5.1 Step 1: turn the model into a grid</h2>
+<p>The model is sliced into a grid of 8 mm cells and each cell is marked filled or empty. The obvious way, marking every cell the surface touches, inflates the model by up to a full cell in every direction.</p>
+<figure><img src="figs/brick_voxel.png"><figcaption>Figure 9. The same vase voxelized two ways. The naive method gives 461 cells; majority vote (a cell is filled only if at least half of it is inside the model) gives 284, which is 38 % fewer and matches the model's real size.</figcaption></figure>
+<div class="note"><b class="t">Two bugs this step needed</b>
+The grid library reports the <i>centre</i> of the first cell, not its corner, so the whole build was offset by half a brick until fixed. And the default voxelizer is a surface method; the half-pitch majority vote replaced it.</div>
+
+<h2>5.2 Step 2: tile each layer, and stagger the layers</h2>
+<p>Bricks only grip <b>up and down</b>. Two bricks side by side in the same layer are not attached to each other; what holds them is a brick in the layer above sitting across both, exactly like a brick wall. So if every layer breaks in the same places, the model falls apart along those lines.</p>
+<figure><img src="figs/brick_stagger.png"><figcaption>Figure 10. An 8 × 6 block, four layers, drawn from the real tiler. Top: every layer tiled identically. 0 % of bricks are tied across a seam, 100 % of seams line up, and the block is 6 separate pieces. Bottom: Cleaveform's staggered tiling. 79 % of bricks are tied across a seam, 32 % of seams line up, and the block is 1 separate piece.</figcaption></figure>
+<div class="callout"><b class="t">In plain words</b>
+The top block is four identical slabs stacked with nothing tying them together: pick it up and it comes apart into six columns. The bottom block is woven like a brick wall, so it holds as one piece.</div>
+<div class="note"><b class="t">Getting there took four attempts, recorded so nobody retries them</b>
+(1) Alternating the scan direction does nothing: an 8-wide run tiles 4|4 in both directions. (2) Preferring different seams on each axis made the two preferences cancel into ties, and the tie-break picked the same brick every layer. (3) Reversing the visit order was catastrophic, because bricks grow in the +x/+y direction from their anchor, so a descending scan could only place 1 × 1 bricks (152 bricks instead of 44). (4) What works: choose bricks that cover at least two bricks below, try several scan origins and mirror images per layer, keep the best-bonded, never reuse the previous layer's choice, then run a repair pass that merges the two bricks either side of any remaining split.</div>
+
+<h2>5.3 The brick set</h2>
+<figure><img src="figs/brick_library.png"><figcaption>Figure 11. The six shapes, rendered from the real brick generator. Each is one layer (8 mm) tall, hollow underneath, with studs on top. The 8 mm pitch is a setting; changing it starts a separate, incompatible brick collection.</figcaption></figure>
+
+<h2>5.4 A whole model: the small vase</h2>
+<figure><img src="figs/brick_vase.png"><figcaption>Figure 12. The 64 × 64 × 100 mm vase and its brick version: 8 × 8 studs, 13 layers, 108 bricks.</figcaption></figure>
+<figure><img src="figs/brick_plate.png"><figcaption>Figure 13. The first of two print plates, with the bricks laid out studs-up and ready to print. Printing studs-up matters: a brick stood on its studs has nothing to hold it to the plate.</figcaption></figure>
+<h3>The assembly guide the tool writes</h3>
+<p>This is real output from today's run, shortened. It lists what to print, how many of each, and a map for every layer, with each letter one brick and neighbours never sharing a letter.</p>
+<pre>==============================================================================
+CLEAVEFORM BRICK BUILD GUIDE
+==============================================================================
+Source model    : models\small_vase.stl
+Model size      : 64.0 x 64.0 x 100.0 mm
+Brick grid      : 8 x 8 studs, 13 courses
+Stud pitch      : 8.0 mm
+Bricks          : 108 from 6 shapes
+Clutch fit      : 0.55 mm interference, printer bias +0.00 mm
+
+   ...
+------------------------------------------------------------------------------
+BILL OF MATERIALS
+------------------------------------------------------------------------------
+SHAPE            QTY    SIZE (studs)   EST WEIGHT
+brick_1x1         15             1x1          6 g
+brick_2x1         46             2x1         34 g
+brick_2x2          2             2x2          3 g
+brick_3x1         19             3x1         20 g
+brick_4x1         24             4x1         34 g
+brick_4x2          2             4x2          5 g
+
+TOTAL            108
+Estimated filament: 103 g over 2 plate(s), ~1.4 h
+Estimates from cleaveform, not slicer output.
+
+   ...
+Course 1 of 13  (7 bricks)
+    ........
+    ..BBB...
+    .AAAAC..
+    .CCCCBA.
+    .CCCCBA.
+    .AAAABA.
+    .AAAAB..
+    ........
+
+Course 2 of 13  (9 bricks)
+    ........
+    .ABBBA..
+    .A...AB.
+    B.....B.
+    B.....B.
+    BA....B.
+    .AB..AA.
+    ..AAA...
+
+   ... (11 more courses) ...</pre>
+<figure><img src="figs/brick_maps.png"><figcaption>Figure 14. The same course maps drawn as pictures (every second layer shown). Layers near the middle are hollow rings, because the vase is hollow.</figcaption></figure>
+<div class="note"><b class="t">Quantities for the vase (estimates, not slicer output)</b>
+108 bricks from 6 shapes over 2 plates; about 103 g of filament and 1.4 hours. The first brick run, made of solid bricks, estimated 126 g and 1.7 hours; the hollow redesign brings that down.</div>
+</div>
+
+<!-- ================================================================ 6 CLUTCH -->
+<div class="section flow">
+<h1>6. The clutch: the part that has not worked yet</h1>
+<p>The <b>clutch</b> is what makes two bricks click together and stay together, yet still come apart by hand. In a real LEGO brick it is held to about a hundredth of a millimetre by injection moulding. A 3D printer holds roughly ten times that, so the fit has to be designed to survive the printer.</p>
+
+<h2>6.1 How it went: nine steps</h2>
+<table>
+<tr><th style="width:6%">#</th><th style="width:24%">What was tried</th><th style="width:26%">What you reported</th><th>What I concluded at the time, and what we know now</th></tr>
+<tr><td>1</td><td>Solid brick, hole sized by a clearance of <b>0.19 mm</b> (borrowed from the chunk joint)</td><td>Loose</td><td>Tightening the clearance should have helped.</td></tr>
+<tr><td>2–4</td><td>Clearances <b>0.175</b>, then <b>0.16</b>; smaller test pieces; a hollow brick; a 3-stud pair</td><td>Still loose; "super super loose"; one of two identical small bricks clicked and the other did not; the 3-stud pair "slips"</td><td>All of these rounds felt the same. In hindsight the whole tested span was narrower than the printer's own variation.</td></tr>
+<tr><td>5</td><td>Review of the design</td><td>(asked me to work out what was going on)</td><td>Found that most of the flex was in the thin <i>roof</i> (about 79 % of it), not the wall that was meant to be the spring. The fix was a deliberately thin 0.9 mm spring wall, a thicker 1.6 mm roof, and a designed <b>interference</b> instead of a clearance. This was analysis, never confirmed by measurement.</td></tr>
+<tr><td>6</td><td>The redesign (thin walls, bumps, designed interference), tested on a ladder that I narrowed to three rungs: 0.30 / 0.40 / 0.50</td><td>"Every print is failing... spaghetti as soon as it starts"</td><td>I blamed the bump noses reaching the plate. That explanation was wrong (section 6.3).</td></tr>
+<tr><td>7</td><td>A one-layer relief under the bumps, then a moulded flange around each coupon to help adhesion</td><td>"Some of them still spaghettified"; later "I fixed the printer", and the flange was removed</td><td>My second explanation (bed contact) was also wrong. Your printer fix was the real fix.</td></tr>
+<tr><td>8</td><td>Ladder 0.80 / 1.00 / 1.20 on the bump design</td><td>The bumps inside make it very hard to line up, so it will not click</td><td>A real design flaw: three studs had to register into three pairs of bumps at once. Replaced by rails (section 6.4).</td></tr>
+<tr><td>9</td><td>Rails with a lead-in ramp, ladder 0.40 / 0.55 / 0.70; then the fit gauge; then one pair at 0.55 plus the gauge</td><td>Printer storage error, nothing printed yet</td><td>Waiting. This is where the project stands.</td></tr>
+</table>
+
+<h2>6.2 How the grip works today</h2>
+<figure><img src="figs/clutch_section.png"><figcaption>Figure 15. Real geometry: two stacked bricks cut through a stud. The stud is 4.80 mm wide and the gap between the rails is 4.25 mm. The red overlap is plastic that has to bend aside, 0.275 mm each side.</figcaption></figure>
+<div class="callout"><b class="t">In plain words</b>
+The stud on the lower brick is a little fatter than the gap between two ridges inside the upper brick, so pushing the brick down forces the ridges apart. They spring back and squeeze the stud. A grip needs the two to <i>overlap</i> slightly, which is why every earlier clearance, even a tiny one, could only ever produce a slip.</div>
+
+<h2>6.3 The spaghetti plates, and my two wrong explanations</h2>
+<figure><img src="figs/clutch_firstlayer.png"><figcaption>Figure 16. Left and middle: the first printed layer of a 3 × 1 brick, old walls against new. Right: the first explanation I gave, checked properly.</figcaption></figure>
+<p><b>Explanation 1 (wrong):</b> the rounded bump noses reached the build plate as tiny specks held on by a neck thinner than one extrusion bead. I had measured how far a bump pokes <i>past</i> the wall face (0.16 mm) and reported it as how wide it joins the wall. The join is a chord across the circle and is <b>0.57 mm</b>, wider than the 0.40 mm bead. They were fused and printable.</p>
+<p><b>Explanation 2 (wrong):</b> thinner walls cut the first-layer contact from about 91 to 54 mm², so parts lifted off. The contact area did drop by 40 %, but it was not the cause. After you fixed the printer, the problem went away.</p>
+<div class="warn"><b class="t">How the error was caught</b>
+I wrote a test for the supposed defect, then ran it against the <i>old</i> geometry as well. It passed on both, so it could not detect anything. A test that passes on the broken version proves nothing, and checking that a new test can fail is now a habit. The wrong fix also cost grip: it cut stud engagement by 31 % before being reduced to a single layer of relief.</div>
+<div class="photo">Space for your photo: the spaghetti plate.</div>
+
+<h2>6.4 From bumps to rails</h2>
+<figure><img src="figs/clutch_history.png"><figcaption>Figure 17. Three generations of the grip, seen from above at stud height. The first is a schematic, the second is reconstructed from the old design's formulas, the third is a real cross-section of today's brick.</figcaption></figure>
+<p>Bumps were chosen because a small feature is easier to tune than a whole wall. What I never considered was how it feels to <i>assemble</i> them. The design was optimised for calibrating, not for using. A continuous rail with a 45-degree ramp along its bottom edge has nothing to line up: the stud meets it wherever it lands. The ramp is derived to stay at 45 degrees whatever the interference.</p>
+<p>The numbers are not comparable across this change. A bump lets the wall dish around it, which gives back part of the interference; a rail loads the whole wall and gives nothing back. That is why the ladder moved down (0.40 / 0.55 / 0.70) when 0.80 had already been too tight.</p>
+
+<h2>6.5 What the printed files really contain</h2>
+<p>Before suspecting the printer, I measured the exact STL files that were sent to you by casting rays through them. The rails are exactly as designed.</p>
+<table>
+<tr><th>Coupon</th><th class="num">Designed gap between rails</th><th class="num">Measured in the file</th><th class="num">Stud width (designed 4.80)</th></tr>
+<tr><td>0.40 mm</td><td class="num">4.40 mm</td><td class="num">4.400 mm</td><td class="num">4.800 mm</td></tr>
+<tr><td>0.55 mm</td><td class="num">4.25 mm</td><td class="num">4.250 mm</td><td class="num">4.800 mm</td></tr>
+<tr><td>0.70 mm</td><td class="num">4.10 mm</td><td class="num">4.100 mm</td><td class="num">4.800 mm</td></tr>
+</table>
+<p>The model is exact at every stud position and every height, so whatever goes wrong happens <b>between the file and the plastic</b> (slicer settings, flow, wear on small contacts). The measuring method matters: two earlier ways of reading the files gave nonsense, because one re-frames coordinates and the other finds nothing on flat-sided shapes. Ray casting is the reliable one.</p>
+
+<h2>6.6 What the research says, and a correction to my earlier explanation</h2>
+<figure><img src="figs/clutch_bias.png"><figcaption>Figure 18. Per the sources in Appendix D: outside features print slightly large and inside holes print slightly small, by a few tenths of a millimetre.</figcaption></figure>
+<p>I had told you that a printed fit loses about <b>four times</b> any printer bias, because a stud prints small and a cavity prints large. The research says the opposite for cavities: holes come out <i>undersized</i>. So printed fits should run <b>tighter</b> than designed, which makes several rounds of "loose" more puzzling, not less. The candidates are a slicer setting enlarging cavities, small contact bumps wearing loose after a few presses, mixed-up test pieces, or the wall taking a permanent set (section 6.8). A fit ladder cannot tell these apart.</p>
+<p>Other points from the same research: real LEGO is moulded to about ±0.01 mm against ±0.1–0.2 mm for FDM; PLA is the recommended material; thinner layers (0.10–0.15 mm) help clutch; and everyone who succeeds does it with a print, measure, adjust loop on their own machine.</p>
+
+<h2>6.7 The fit gauge and the test coupons</h2>
+<figure><img src="figs/clutch_gauge.png"><figcaption>Figure 19. The gauge. The bar's three studs are made by the same call as a real brick's studs. The comb's seven slots run from 4.50 to 5.10 mm wide around the 4.80 mm stud. Print both flat.</figcaption></figure>
+<p><b>How to read it.</b> Hold the bar studs-down and try each slot starting at the tab. Report <b>A</b>, the first slot it slides into freely, and <b>B</b>, the first slot it presses into and stays when you lift the comb. Those two numbers are your printer's real bias, measured directly. That value goes into <code>brick_fit_bias_mm</code>, and from then on every brick corrects for your printer, so the interference setting finally means what happens in the plastic.</p>
+<figure><img src="figs/clutch_coupons.png"><figcaption>Figure 20. The coupons. Every rung is the same 3 × 1 brick, told apart by dots on the short end wall (never on the long walls, which are the springs). Small bars under the dots mark the batch.</figcaption></figure>
+<div class="note"><b class="t">Why every rung is the same size</b>
+The first test ladder labelled its rungs by brick <i>length</i>. But length is also the largest influence on how stiff the walls are (a 1 × 1 is a closed braced box, a 3 × 1 wall's nearest brace is a whole unit away), so it changed the stiffness and the fit together and measured neither cleanly. Batch bars exist because pieces from different design generations look almost identical, and mixing them in a test produces readings that make no sense.</div>
+
+<h2>6.8 New today: the wall may be over-stressed</h2>
+<figure><img src="figs/clutch_strain.png"><figcaption>Figure 21. A rough estimate of peak strain in the gripping wall against the designed interference.</figcaption></figure>
+<p>Treating the wall as a strip hanging from the roof (0.90 mm thick, 4.54 mm free length), the estimated peak strain at the current default of 0.55 mm is about <b>1.8 %</b>. Printed PLA snap fits are usually kept near 1–2 %, and guidance halves that when the bend runs across layer lines, which a vertical wall bending sideways does. The practical ceiling is about 0.5–1 %, so anything above roughly 0.30 mm is over it.</p>
+<div class="warn"><b class="t">What this could mean, and how far to trust it</b>
+If it is right, a brick pressed together once stays bent: it takes a permanent set and then feels loose at <i>every</i> designed setting. That would explain why raising the number never made anything tighter. <b>It is an estimate</b>: a rough strip model with commonly quoted limits, not a measurement of your filament. The end walls do not make the real wall safer, so short bricks like a 1 × 1 are probably worse than the strip figure. It is cheap to confirm: press one pair together twenty times and see whether it loosens, or look for white stress marks on the rails.</div>
+</div>
+
+<!-- ================================================================ 7 MISTAKES -->
+<div class="section flow">
+<h1>7. Mistakes and corrections</h1>
+<p>These are listed because each one cost time, and because the pattern matters: most were confident explanations argued from arithmetic and never checked against a controlled comparison.</p>
+<table>
+<tr><th style="width:4%">#</th><th style="width:30%">What I said or did</th><th style="width:30%">What was true</th><th>How it was found, and the cost</th></tr>
+<tr><td>1</td><td>The 48-sided stud has a 0.010 mm bias.</td><td>Measured exactly 4.800 mm. 48 sections of 7.5° make 90°, so a vertex lands on the axis.</td><td>Direct measurement. Told you straight away.</td></tr>
+<tr><td>2</td><td>Hollowing the bricks saves about 20 % of filament.</td><td>8 % when measured; my sketch had thinner walls and no tubes.</td><td>Measurement. A wrong expectation.</td></tr>
+<tr><td>3</td><td>A test ladder that varied brick length to label the rungs.</td><td>Length also sets wall stiffness, so it varied two things at once.</td><td>Later analysis. A print round measured nothing clean.</td></tr>
+<tr><td>4</td><td>Spaghetti was caused by rib noses reaching the plate as unprintable specks.</td><td>The join is 0.57 mm, wider than a 0.40 mm bead. Fused and fine.</td><td>Running my new test against the old geometry: it passed on both. Cost 31 % of stud engagement.</td></tr>
+<tr><td>5</td><td>Spaghetti was caused by thin walls cutting bed contact; I moulded a flange on every coupon.</td><td>A printer fault. You fixed it and the problem vanished.</td><td>Your fix. An unnecessary flange you had to peel off.</td></tr>
+<tr><td>6</td><td>Printed fits lose about four times the process bias because cavities print large.</td><td>Holes print small, so fits should run tighter, not looser.</td><td>Research this session. The explanation behind several rounds had the sign backwards.</td></tr>
+<tr><td>7</td><td>Discrete bumps are a good way to tune the grip.</td><td>They are very hard to assemble: three studs must register at once.</td><td>You reported it. Replaced by rails.</td></tr>
+<tr><td>8</td><td>You could allowlist the single blocked library under Smart App Control.</td><td>Smart App Control has no exclusion list. On or off is the only control.</td><td>Checked afterwards; you had already taken the one real option.</td></tr>
+<tr><td>9</td><td>After the clutch redesign, brick mode was fine.</td><td>It crashed at its final step (writing the guide), which still read a removed setting. 263 tests passed because none ran the stages together.</td><td>Found while building this report. Fixed, with two end-to-end tests that I confirmed fail on the old code.</td></tr>
+</table>
+<div class="good"><b class="t">What changed in how I work</b>
+Before trusting a new regression test, run it against the bug it claims to catch. Before shipping a fit change, ask what assembling it actually feels like. And measure the printer instead of laddering around a guess.</div>
+</div>
+
+<!-- ================================================================ 8 ENVIRONMENT -->
+<div class="section flow">
+<h1>8. Problems outside the code</h1>
+<h2>8.1 Windows Smart App Control</h2>
+<p>Partway through, every geometry operation stopped working. The boolean library <code>manifold3d</code> is an unsigned add-on and Windows blocked it. Smart App Control has three states (On, Off, Evaluation), and in Evaluation Windows decides on its own whether to switch itself on. It switched itself on minutes after the same code had run fine, so nothing in the project had changed. You turned it off, and everything worked again. It cannot be turned back on without reinstalling Windows.</p>
+<p>While it was blocked, 98 of the 247 tests at that moment failed and 9 more could not start, and 2D diagnostics with <code>shapely</code> (which needs no native library) were what kept the work moving.</p>
+
+<h2>8.2 The printer's storage error</h2>
+<p>Bambu Studio reported that storage needs to be inserted before printing over the network. The printer saves a sent file to its microSD card first, so the card is missing, loose, full or corrupted. The order to try: check the touchscreen, reseat the card, check it on a PC, format it, try another card. If the card is fine on screen but the error remains, the fallback is to slice, export the file, and carry it over on the card.</p>
+
+<h2>8.3 Which nozzle?</h2>
+<p>You asked whether a 0.4 mm hardened nozzle or a 0.6 mm high-flow nozzle would suit better. For this project: <b>0.4 mm</b>. The gripping wall is 0.90 mm, which is two clean 0.42 mm lines. At 0.6 mm it is 1.45 lines, so the slicer improvises and can silently switch between one fat line and two thin ones, which changes the stiffness of the very spring we are tuning. A 0.6 mm nozzle makes sense later for production bricks with a 1.2 mm wall.</p>
+<div class="warn"><b class="t">Still unanswered</b>
+Which nozzle were the earlier failed rounds printed on? A 0.6 mm nozzle rendering a 0.90 mm wall as one soft line could by itself explain a brick that deforms on the first press and never grips again.</div>
+</div>
+
+<!-- ================================================================ 9 NEXT -->
+<div class="section flow">
+<h1>9. Where it stands and what to do next</h1>
+
+<h2>9.1 What is solid</h2>
+<ul>
+<li>Chunk mode, end to end, calibrated by print.</li>
+<li>Cost scoring, caching and estimates, validated against your real slices.</li>
+<li>Brick mode in software: voxelizing, staggered tiling, repair, brick generation, plates, parts list, course maps and guide. Working end to end again as of today.</li>
+<li>265 automated tests, including the new end-to-end brick run.</li>
+</ul>
+
+<h2>9.2 What is open</h2>
+<ul>
+<li>The brick grip has not been shown to click and hold on any real print.</li>
+<li>The gauge and the 0.55 mm pair are waiting on the printer.</li>
+<li>The strain estimate has not been checked against a real brick.</li>
+</ul>
+
+<h2>9.3 Options while the printer is being fixed</h2>
+<table>
+<tr><th style="width:26%">Option</th><th>What it would do</th><th style="width:16%">Needs printer?</th></tr>
+<tr><td><b>1. Redesign so the wall cannot be over-stressed</b> (recommended)</td><td>Lower the interference, lengthen the free part of the wall, or replace friction with a <b>positive snap</b>: a small ridge on the stud that clicks into a groove, so the grip comes from shape rather than from squeezing. Build two or three candidates with the strain check built in.</td><td>No</td></tr>
+<tr><td><b>2. Prepare one "decision plate"</b> (recommended)</td><td>The gauge, the current bricks and the candidates on one plate, so the first print after the repair answers the most questions at once.</td><td>No (to prepare)</td></tr>
+<tr><td><b>3. Housekeeping</b></td><td>The README still describes the old bump ribs. A library call used in the tests was scheduled for removal in January 2026. The project folder holds nine old zips and about a dozen old output folders.</td><td>No</td></tr>
+<tr><td><b>4. Features for "legos for anything"</b></td><td>Packing plates for the H2D's build volume, mapping model colours onto the dual nozzle, a clearer assembly guide.</td><td>No</td></tr>
+</table>
+
+<div class="callout"><b class="t">Two things that would help me most</b>
+<ol>
+<li>When the printer is back, print the gauge together with the pair at 0.55 and tell me <b>A</b> and <b>B</b>, and whether the pair slips, clicks and holds, or is too tight to seat.</li>
+<li>Tell me what you fixed on the printer, and which nozzle the earlier brick rounds used.</li>
+</ol></div>
+</div>
+
+<!-- ================================================================ APPENDIX -->
+<div class="section">
+<h1>Appendix</h1>
+<h2>A. Current brick settings</h2>
+<table>
+<tr><th>Setting</th><th class="num">Value</th><th>Meaning</th></tr>
+<tr><td><code>brick_unit_mm</code></td><td class="num">8.0 mm</td><td>Stud pitch: the size of one brick cell. Changing it starts a separate, incompatible collection.</td></tr>
+<tr><td><code>brick_stud_radius_mm</code></td><td class="num">2.40 mm</td><td>Stud radius (derived from the unit).</td></tr>
+<tr><td><code>brick_stud_height_mm</code></td><td class="num">2.60 mm</td><td>Stud height.</td></tr>
+<tr><td><code>brick_wall_mm</code></td><td class="num">0.90 mm</td><td>Side wall thickness. Deliberately thin: this wall is the spring.</td></tr>
+<tr><td><code>brick_roof_mm</code></td><td class="num">1.60 mm</td><td>Roof thickness. Deliberately stiffer than the wall, so the wall does the flexing.</td></tr>
+<tr><td><code>brick_clutch_interference_mm</code></td><td class="num">0.55 mm</td><td>Designed overlap between a stud and the rails. Bigger is tighter. Not yet confirmed on a print.</td></tr>
+<tr><td><code>brick_fit_bias_mm</code></td><td class="num">+0.00 mm</td><td>Your printer's measured fit bias. Left at zero until the gauge has been read.</td></tr>
+<tr><td><code>brick_rail_chamfer_mm</code></td><td class="num">0.925 mm</td><td>Height of the 45-degree lead-in ramp (derived).</td></tr>
+<tr><td><code>brick_rib_relief_mm</code></td><td class="num">0.20 mm</td><td>Rails start one layer above the plate, clear of elephant foot.</td></tr>
+<tr><td><code>brick_tube_clearance_mm</code></td><td class="num">0.30 mm</td><td>Gap between a roof-bracing tube and the studs. Tubes brace the roof and do not grip.</td></tr>
+<tr><td><code>brick_tube_wall_mm</code></td><td class="num">1.20 mm</td><td>Wall thickness of those tubes.</td></tr>
+<tr><td><code>brick_fit_clearance_mm</code></td><td class="num">0.10 mm</td><td>Gap between neighbouring bricks (they never mate sideways).</td></tr>
+<tr><td><code>joint_clearance_mm</code></td><td class="num">0.19 mm</td><td>Chunk-mode peg joint clearance, calibrated by print. Separate from the brick fit.</td></tr>
+</table>
+
+<h2>B. Test suite</h2>
+<p>265 tests across ten files, covering geometry, joints, assembly, costs, caching, estimation, units, configuration, brick mode and end-to-end acceptance runs.</p>
+<table>
+<tr><th>File</th><th class="num">Tests</th><th>Covers</th></tr>
+<tr><td>test_acceptance.py</td><td class="num">37</td><td>Whole-pipeline guarantees: determinism, every part fits, constraint tiers, offline operation</td></tr>
+<tr><td>test_brick.py</td><td class="num">65</td><td>Brick geometry, tiling, layout, calibration fixtures, the gauge, the full brick run</td></tr>
+<tr><td>test_cost.py</td><td class="num">26</td><td>The six-term cost function</td></tr>
+<tr><td>test_cache.py</td><td class="num">25</td><td>Cache keys, stages, byte-identical warm runs</td></tr>
+<tr><td>test_config.py</td><td class="num">22</td><td>Settings, validation, no inline magic numbers</td></tr>
+<tr><td>test_estimation.py</td><td class="num">22</td><td>Time and weight against your real slices</td></tr>
+<tr><td>test_geometry_and_export.py</td><td class="num">20</td><td>Booleans, repair, export guards</td></tr>
+<tr><td>test_joints_and_assembly.py</td><td class="num">20</td><td>Peg and socket generation, assembly order</td></tr>
+<tr><td>test_decompose.py</td><td class="num">14</td><td>Cutting a model into parts</td></tr>
+<tr><td>test_units.py</td><td class="num">14</td><td>Unit detection and scaling</td></tr>
+</table>
+
+<h2>C. Files you may want</h2>
+<table>
+<tr><th>Path</th><th>What it is</th></tr>
+<tr><td><code>myprinter.json</code></td><td>Your measured printer values (joint clearance 0.19 mm, infill, speed, layer overhead, shell thickness, brick interference)</td></tr>
+<tr><td><code>next_print.zip</code></td><td>The four parts to print next: the fit gauge and a pair of bricks at 0.55 mm</td></tr>
+<tr><td><code>fit_gauge.zip</code></td><td>The gauge on its own</td></tr>
+<tr><td><code>models/</code>, <code>vase_out/</code>, <code>vase_bricks/</code></td><td>The test vase and its chunk-mode and brick-mode results (the brick folder predates today's fix; rerun it for a fresh guide)</td></tr>
+<tr><td><code>cleaveform/</code>, <code>tests/</code>, <code>docs/</code></td><td>The code, tests and the original specifications</td></tr>
+</table>
+
+<h2>D. Sources</h2>
+<ul class="small">
+<li>Meshy: <a href="https://www.meshy.ai/blog/lego-compatible-3d-print-tolerances">Best tolerances for 3D printing LEGO-compatible bricks</a></li>
+<li>Maktra: <a href="https://maktraequipments.com/blogs/3d-printer/how-to-3d-print-lego-pieces">How to 3D print LEGO pieces: clutch power guide</a></li>
+<li>Brick Architect: <a href="https://brickarchitect.com/2023/enhancing-your-lego-hobby-with-3d-plastic-printing/">Enhancing your LEGO hobby with 3D printing</a></li>
+<li>3D Printerly: <a href="https://3dprinterly.com/5-ways-how-to-fix-3d-printed-holes-being-too-small/">How to fix 3D printed holes being too small</a></li>
+<li>Sovol: <a href="https://www.sovol3d.com/blogs/news/fdm-3d-printing-tolerances-clearances-how-to-design-parts-that-fit">FDM 3D printing tolerances and clearances</a></li>
+<li>FilamentFeed: <a href="https://filamentfeed.com/article/snap-fit-design-3d-printing-guide-june-2026">Snap fit design for 3D printing: deflection math, tolerances, material tradeoffs</a></li>
+<li>Fictiv: <a href="https://www.fictiv.com/articles/how-to-design-snap-fit-components">How to design snap fit components</a></li>
+</ul>
+<p class="small">The strain figures in section 6.8 come from the standard cantilever formula, peak strain = 1.5 × thickness × deflection ÷ length², with the limits above taken as commonly quoted guidance. They are an estimate to be checked on a real print, not a measured property of your filament.</p>
+</div>
+
+</body>
+</html>
